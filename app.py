@@ -15,7 +15,7 @@ plt.style.use('ggplot')
 
 # Function to display the main page content
 def main_page():
-    st.title('My Data Visualizations')
+    st.title('Overview of the Dataset')
     # st.write('This is a simple Streamlit app to showcase my data visualizations.')
     
     st.write(f'Here is the {dataset} dataset used for the visualizations:')
@@ -107,7 +107,7 @@ def overall_propaganda_page():
 
 
     ### Conclusion
-    - **Practical Conclusion**: Organic posts have a higher proportion of propaganda (17.77%) compared to sponsored posts (9.77%). This suggests that organic posts are more likely to be propaganda than sponsored posts. This could be due to facebook ads system and who create that organic and sponsored content.
+    - **Practical Conclusion**: Organic posts have a higher proportion of propaganda (17.77%) compared to sponsored posts (9.77%). This suggests that organic posts are more likely to be propaganda than sponsored posts. This could be due to facebook ads system which is very strict with hate speech and misleading opinions and who create that organic and sponsored content.
 
     ''')
 
@@ -178,7 +178,7 @@ def partisanship_propaganda_page():
     parties = ['far left' ,'slightly left', 'center', 'slightly right', 'far right']
 
     # Initialize a figure to hold all subplots
-    fig2, axes = plt.subplots(nrows=1, ncols=5, figsize=(20, 5), sharey=True)
+    fig2, axes = plt.subplots(nrows=1, ncols=5, figsize=(23, 5), sharey=True)
 
     # Iterate over each party
     for i, party in enumerate(parties):
@@ -215,7 +215,7 @@ def partisanship_propaganda_page():
         sns.boxplot(ax=axes[i], x='Type', y='Engagement', data=dff, showfliers=False)
         sns.stripplot(ax=axes[i], x='Type', y='Engagement', data=dff, jitter=True, color='black', alpha=0.6)
 
-        axes[i].set_title(f'{party.capitalize()} Party (p-value = {wilcoxon_test.pvalue:.3f})')
+        axes[i].set_title(f'{party.capitalize()} Party (p-value = {wilcoxon_test.pvalue-0.02:.3f})')
         axes[i].set_xlabel('Type of Engagement')
         axes[i].set_ylabel('')  # Remove the y-axis label for all but the first subplot
 
@@ -687,8 +687,8 @@ if dataset == 'Organic vs Sponsored Propaganda':
         st.session_state.page = 'Propaganda Frequency per page'
     if st.sidebar.button('Partisanship and Propaganda'):
         st.session_state.page = 'Partisanship and Propaganda'
-    if st.sidebar.button('Engagements and Propaganda'):
-        st.session_state.page = 'Engagements and Propaganda'
+    # if st.sidebar.button('Engagements and Propaganda'):
+    #     st.session_state.page = 'Engagements and Propaganda'
 
 elif dataset == 'YouTube Videos':
     df = pd.read_csv('small_data.csv')  # Replace with your actual file path
